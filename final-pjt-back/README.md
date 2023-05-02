@@ -1,4 +1,12 @@
 ```
+# make virtual environment(가상환경 설정, python 3.11 버전 안됨!! 주의!)
+py -3.10 -m venv .venv
+# python -m venv .venv
+source .venv/Scripts/activate
+
+# download requirements
+pip install -r requirements.txt
+
 # dumpdata
 python manage.py dumpdata movies -o movies.json
 
