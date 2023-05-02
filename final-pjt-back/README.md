@@ -7,6 +7,7 @@ source .venv/Scripts/activate
 # download requirements
 pip install -r requirements.txt
 
+# .env 파일을 미리 만들어서 SECRET_KEY 값을 정해주어야 함.
 # dumpdata
 python manage.py dumpdata movies -o movies.json
 
