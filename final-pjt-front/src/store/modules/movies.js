@@ -50,10 +50,6 @@ export default {
     movieMaxPage: (state) => state.movieMaxPage,
     movieTrailer: (state) => state.movieTrailer,
     movieStar: (state) => state.movieStar,
-
-    // isAuthor: (state, getters) => {
-    //   return state.movie.user?.username === getters.currentUser.username
-    // },
     isMovie: (state) => !_.isEmpty(state.movie),
     isDetail: (state) => state.isDetail,
     movieTitle: (state) => state.movieTitle,
