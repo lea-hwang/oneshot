@@ -62,7 +62,7 @@
                     <h5 class="d-inline">{{ shot.title }}</h5>
                   </div>
                   <!-- 시간 -->
-                  <small class="text-muted">{{ difTime }}</small>
+                  <small class="text-muted">{{ createdAt }}</small>
                 </div>
                 <!-- 내용 -->
                 <div class="scroll-content">
@@ -134,6 +134,7 @@
 
 <script>
 import ShotComments from "@/components/shot/ShotComments.vue";
+import { difTime } from "@/assets/js/common.js";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ShotDetail",
@@ -168,29 +169,8 @@ export default {
     shotUserPk() {
       return this.shot.user?.pk;
     },
-    difTime() {
-      const today = new Date();
-      const timeValue = new Date(this.shot.created_at);
-
-      const betweenTime = Math.floor(
-        (today.getTime() - timeValue.getTime()) / 1000 / 60
-      );
-      if (betweenTime < 1) return "방금전";
-      if (betweenTime < 60) {
-        return `${betweenTime}분전`;
-      }
-
-      const betweenTimeHour = Math.floor(betweenTime / 60);
-      if (betweenTimeHour < 24) {
-        return `${betweenTimeHour}시간전`;
-      }
-
-      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-      if (betweenTimeDay < 365) {
-        return `${betweenTimeDay}일전`;
-      }
-
-      return `${Math.floor(betweenTimeDay / 365)}년전`;
+    createdAt() {
+      return difTime(this.shot.created_at);
     },
   },
   methods: {

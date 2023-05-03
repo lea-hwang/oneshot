@@ -49,7 +49,7 @@
               >#{{ shot.movie.title }}</router-link
             ></small
           >
-          <small class="text-muted">{{ difTime }}</small>
+          <small class="text-muted">{{ createdAt }}</small>
         </div>
         <hr />
         <!--  유저, 좋아요, 댓글 수 -->
@@ -78,6 +78,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { difTime } from "@/assets/js/common.js";
 export default {
   name: "TheShot",
   props: {
@@ -86,29 +87,8 @@ export default {
   },
   computed: {
     ...mapGetters(["isLiked", "currentUser", "shotType", "imageUrl"]),
-    difTime() {
-      const today = new Date();
-      const timeValue = new Date(this.shot.created_at);
-
-      const betweenTime = Math.floor(
-        (today.getTime() - timeValue.getTime()) / 1000 / 60
-      );
-      if (betweenTime < 1) return "방금 전";
-      if (betweenTime < 60) {
-        return `${betweenTime}분 전`;
-      }
-
-      const betweenTimeHour = Math.floor(betweenTime / 60);
-      if (betweenTimeHour < 24) {
-        return `${betweenTimeHour}시간 전`;
-      }
-
-      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-      if (betweenTimeDay < 365) {
-        return `${betweenTimeDay}일 전`;
-      }
-
-      return `${Math.floor(betweenTimeDay / 365)}년 전`;
+    createdAt() {
+      return difTime(this.shot.created_at);
     },
     shotImage() {
       return this.imageUrl + `${this.shot.image}`;
