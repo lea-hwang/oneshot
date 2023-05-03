@@ -1,10 +1,22 @@
 ```
+# make virtual environment(가상환경 설정, python 3.11 버전 안됨!! 주의!)
+py -3.10 -m venv .venv
+# python -m venv .venv
+source .venv/Scripts/activate
+
+# download requirements
+pip install -r requirements.txt
+
+# .env 파일을 미리 만들어서 SECRET_KEY 값을 정해주어야 함.
 # dumpdata
 python manage.py dumpdata movies -o movies.json
 
 # loaddata (db 없는 경우 migrate부터 시작)
 python manage.py migrate
 python manage.py loaddata movies.json
+
+# run server
+python manage.py runserver
 ```
 
 # Django Restful API 문서 확인
