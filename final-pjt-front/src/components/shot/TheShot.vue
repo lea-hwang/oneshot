@@ -56,12 +56,10 @@
         <div class="d-flex justify-content-between">
           <div @click="moveProfile" class="mouse-cursor-custom">
             <font-awesome-icon
-              v-if="!shot.user.profile_image"
               icon="fa-solid fa-circle-user"
               size="xl"
               :style="{ color: '#6E30F2' }"
             />
-            <img v-else :src="profileImage" alt="profile image" />
             <strong> {{ shotUserUsername }}</strong>
           </div>
           <div class="me-2">
@@ -78,7 +76,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { difTime } from "@/assets/js/common.js";
+import { difTime, BACKEND_HOST } from "@/assets/js/common.js";
 export default {
   name: "TheShot",
   props: {
@@ -86,12 +84,12 @@ export default {
     index: Number,
   },
   computed: {
-    ...mapGetters(["isLiked", "currentUser", "shotType", "imageUrl"]),
+    ...mapGetters(["isLiked", "currentUser", "shotType"]),
     createdAt() {
       return difTime(this.shot.created_at);
     },
     shotImage() {
-      return this.imageUrl + `${this.shot.image}`;
+      return BACKEND_HOST + `${this.shot.image}`;
     },
     shotUserUsername() {
       return this.shot?.user.username;

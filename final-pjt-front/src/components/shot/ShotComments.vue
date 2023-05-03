@@ -56,6 +56,7 @@
 <script>
 import { difTime } from "@/assets/js/common.js";
 import { mapGetters, mapActions } from "vuex";
+import { BACKEND_HOST } from "@/assets/js/common.js";
 export default {
   name: "ShotComments",
   data() {
@@ -69,12 +70,12 @@ export default {
     shotId: Number,
   },
   computed: {
-    ...mapGetters(["currentUser", "imageUrl"]),
+    ...mapGetters(["currentUser"]),
     commentUserUsername() {
       return this.comment?.user.username;
     },
     imagePath(img) {
-      return this.imageUrl + img;
+      return BACKEND_HOST + img;
     },
     createdAt() {
       return difTime(this.comment.created_at);

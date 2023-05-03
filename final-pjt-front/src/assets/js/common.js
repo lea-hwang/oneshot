@@ -22,3 +22,5 @@ export const difTime = (previousTime) => {
 
   return `${Math.floor(betweenTimeDay / 365)}년전`;
 };
+
+export const BACKEND_HOST = "http://localhost:8000/";

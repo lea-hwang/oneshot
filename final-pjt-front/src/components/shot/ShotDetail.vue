@@ -134,7 +134,7 @@
 
 <script>
 import ShotComments from "@/components/shot/ShotComments.vue";
-import { difTime } from "@/assets/js/common.js";
+import { difTime, BACKEND_HOST } from "@/assets/js/common.js";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ShotDetail",
@@ -145,23 +145,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "shot",
-      "index",
-      "isLike",
-      "currentUser",
-      "shotType",
-      "imageUrl",
-    ]),
+    ...mapGetters(["shot", "index", "isLike", "currentUser", "shotType"]),
     shotImage() {
-      return this.imageUrl + `${this.shot.image}`;
-    },
-    profileImage() {
-      if (this.shot.user.profile_image) {
-        return `${this.imageUrl}${this.shot.user.profile_image}`;
-      } else {
-        return "";
-      }
+      return BACKEND_HOST + `${this.shot.image}`;
     },
     shotUserUsername() {
       return this.shot.user?.username;
