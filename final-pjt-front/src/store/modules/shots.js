@@ -69,6 +69,7 @@ export default {
     // 처음에 게시글 목록 받아오기
     fetchShots({ commit, getters }, shotType) {
       commit("RESET_SHOT_PAGE_NUM");
+      commit("SET_SHOTS", []);
       axios({
         url: drf.shots.shots(0),
         method: "get",
