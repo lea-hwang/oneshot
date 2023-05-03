@@ -1,18 +1,18 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import store from '../store'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import store from "@/store";
 
-import HomeView from '@/views/HomeView.vue'
-import MovieView from '@/views/MovieView.vue'
-import DetailView from '@/views/DetailView.vue'
-import ShotView from '@/views/ShotView.vue'
-import ShotCreateView from '@/views/ShotCreateView.vue'
-import ShotUpdateView from '@/views/ShotUpdateView.vue'
-import ProfileView from '@/views/ProfileView.vue'
-import NotFound404 from '../views/NotFound404.vue'
-import AdminView from '@/views/AdminView.vue'
+import HomeView from "@/views/HomeView.vue";
+import MovieView from "@/views/MovieView.vue";
+import DetailView from "@/views/DetailView.vue";
+import ShotView from "@/views/ShotView.vue";
+import ShotCreateView from "@/views/ShotCreateView.vue";
+import ShotUpdateView from "@/views/ShotUpdateView.vue";
+import ProfileView from "@/views/ProfileView.vue";
+import NotFound404 from "@/views/NotFound404.vue";
+import AdminView from "@/views/AdminView.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   /*
@@ -31,88 +31,102 @@ const routes = [
     * => /404
   */
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "home",
+    component: HomeView,
   },
   {
-    path: '/movie',
-    name: 'movie',
+    path: "/movie",
+    name: "movie",
     component: MovieView,
   },
   {
-    path: '/detail/:movieId',
-    name: 'detail',
+    path: "/detail/:movieId",
+    name: "detail",
     component: DetailView,
   },
   {
-    path: '/profile/:username',
-    name: 'profile',
+    path: "/profile/:username",
+    name: "profile",
     component: ProfileView,
   },
   {
-    path: '/shot',
-    name: 'shot',
+    path: "/shot",
+    name: "shot",
     component: ShotView,
   },
   {
-    path: '/shot/create',
-    name: 'shotCreate',
+    path: "/shot/create",
+    name: "shotCreate",
     component: ShotCreateView,
   },
   {
-    path: '/shot/update',
-    name: 'shotUpdate',
+    path: "/shot/update",
+    name: "shotUpdate",
     component: ShotUpdateView,
   },
   {
-    path: '/admin',
+    path: "/admin",
     component: AdminView,
-    beforeEnter(){
-      window.location.href = "https://one-shot-api.link/admin/"
-    }
+    beforeEnter() {
+      window.location.href = "https://one-shot-api.link/admin/";
+    },
   },
   {
-    path: '/404',
-    name: 'NotFound404',
+    path: "/404",
+    name: "NotFound404",
     component: NotFound404,
   },
   {
-    path: '*',
-    redirect: '/404'
+    path: "*",
+    redirect: "/404",
   },
-  
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes,
-})
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
+});
 
 router.beforeEach((to, from, next) => {
   // 이전 페이지에서 발생한 에러메시지 삭제
-  store.commit('SET_AUTH_ERROR', null)
+  store.commit("SET_AUTH_ERROR", null);
 
-  const { isLoggedIn } = store.getters
+  const { isLoggedIn } = store.getters;
 
+  const noAuthPages = [
+    "login",
+    "signup",
+    "home",
+    "shot",
+    "movie",
+    "detail",
+    "profile",
+    "NotFound404",
+  ];
 
-  const noAuthPages = ['login', 'signup', 'home', 'shot', 'movie', 'detail', 'profile', 'NotFound404']
-
-  const isAuthRequired = !noAuthPages.includes(to.name)
+  const isAuthRequired = !noAuthPages.includes(to.name);
 
   // 로그인되어 있지 않고, 권한이 필요한 요청을 했다면
   if (isAuthRequired && !isLoggedIn) {
-    alert('로그인이 필요합니다')
-    next({ name: 'home' })
+    alert("로그인이 필요합니다");
+    next({ name: "home" });
   } else {
-    next()
+    next();
   }
 
   // if (!isAuthRequired && isLoggedIn) {
   //   next()
   // }
-})
+});
 
 /*
 Navigation Guard 설정
@@ -136,4 +150,4 @@ Navigation Guard 설정
 
 */
 
-export default router
+export default router;
