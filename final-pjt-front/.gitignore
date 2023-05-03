@@ -4,6 +4,7 @@ node_modules
 *.patch
 
 # local env files
+.env
 .env.local
 .env.*.local
 
