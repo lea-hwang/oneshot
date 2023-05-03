@@ -125,6 +125,7 @@ export default {
 
     fetchMovies({ commit, getters }, params) {
       commit("RESET_MOVIEPAGENUM"); // 0으로 페이지 넘버 초기화
+      commit("SET_MOVIES", []); // 빈 리스트로 초기화
       axios({
         url: drf.movies.movies(0),
         method: "get",
