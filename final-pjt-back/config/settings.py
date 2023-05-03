@@ -27,10 +27,12 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "54.147.73.25",
-    "one-shot-api.link",
-]
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = [
+#     "54.147.73.25",
+#     "one-shot-api.link",
+#     # "127.0.0.1"
+# ]
 
 
 # Application definition
@@ -169,6 +171,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # 특정 origin 에게만 교차 출처 허용
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', cast=lambda v: [s.strip() for s in v.split(',')])
+CORS_ALLOW_CREDENTIALS = True
 
 # 모두에게 교차출처 허용 (*)
 # CORS_ALLOW_ALL_ORIGINS = True
@@ -200,24 +203,24 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # S3 관련 설정
 # AWS_S3_SECURE_URLS = True       # use http instead of https
 # AWS_QUERYSTRING_AUTH = False     # don't add complex authentication-related query parameters for requests
-AWS_S3_ACCESS_KEY_ID = config('AWS_S3_ACCESS_KEY_ID')
-AWS_S3_SECRET_ACCESS_KEY = config('AWS_S3_SECRET_ACCESS_KEY')
+# AWS_S3_ACCESS_KEY_ID = config('AWS_S3_ACCESS_KEY_ID')
+# AWS_S3_SECRET_ACCESS_KEY = config('AWS_S3_SECRET_ACCESS_KEY')
 
-AWS_REGION = 'ap-northeast-2'
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_REGION = 'ap-northeast-2'
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 # AWS_S3_OBJECT_PARAMETERS = {
 #     'CacheControl': 'max-age=86400',
 # }
-AWS_S3_CUSTOM_DOMAIN = 's3.%s.amazonaws.com/%s' % (
-    AWS_REGION, AWS_STORAGE_BUCKET_NAME)
+# AWS_S3_CUSTOM_DOMAIN = 's3.%s.amazonaws.com/%s' % (
+#     AWS_REGION, AWS_STORAGE_BUCKET_NAME)
 
 # # # Static Setting
-STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static')
 # ]
 
 # #Media Setting
-MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
