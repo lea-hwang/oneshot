@@ -144,9 +144,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["shot", "index", "isLike", "currentUser", "shotType"]),
+    ...mapGetters([
+      "shot",
+      "index",
+      "isLike",
+      "currentUser",
+      "shotType",
+      "imageUrl",
+    ]),
     shotImage() {
-      return `${this.shot.image}`;
+      return this.imageUrl + `${this.shot.image}`;
     },
     profileImage() {
       if (this.shot.user.profile_image) {
