@@ -9,7 +9,7 @@ export default {
     shots: [],
     shot: {},
     shotPageNum: 0,
-    maxPage: 0,
+    shotMaxPage: 0,
     isLiked: [],
     index: 0,
     isLike: null,
@@ -26,7 +26,7 @@ export default {
     isShot: (state) => !_.isEmpty(state.shot),
     isLiked: (state) => state.isLiked,
     shotPageNum: (state) => state.shotPageNum,
-    maxPage: (state) => state.maxPage,
+    shotMaxPage: (state) => state.shotMaxPage,
     index: (state) => state.index,
     isLike: (state) => state.isLike,
     shotType: (state) => state.shotType,
@@ -44,7 +44,8 @@ export default {
 
     RESET_SHOT_PAGE_NUM: (state) => (state.shotPageNum = 0),
     ADD_SHOT_PAGE_NUM: (state) => (state.shotPageNum += 1),
-    SET_MAX_PAGE: (state, maxPage) => (state.maxPage = maxPage),
+    SET_SHOT_MAX_PAGE: (state, shotMaxPage) =>
+      (state.shotMaxPage = shotMaxPage),
 
     SET_ISLIKED: (state, isLiked) => (state.isLiked = isLiked),
     ADD_ISLIKED: (state, isLiked) => state.isLiked.push(...isLiked),
@@ -78,7 +79,7 @@ export default {
         .then((res) => {
           commit("SET_SHOTS", res.data.shots);
           commit("ADD_SHOT_PAGE_NUM");
-          commit("SET_MAX_PAGE", res.data.max_page);
+          commit("SET_SHOT_MAX_PAGE", res.data.max_page);
           commit("SET_ISLIKED", res.data.is_liked);
           commit("SET_SHOTTYPE", shotType);
         })

@@ -11,34 +11,20 @@
 <script>
 import TheMovie from "@/components/movie/TheMovie.vue";
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "MovieList",
   components: {
     TheMovie,
   },
   computed: {
-    ...mapGetters(["movies", "moviePageNum", "movieMaxPage"]),
+    ...mapGetters(["movies"]),
   },
   methods: {
-    ...mapActions(["fetchMovies", "addMovies"]),
-    scrollMoviePage(e) {
-      if (this.moviePageNum && this.movieMaxPage && this.$route.name) {
-        if (
-          this.moviePageNum <= this.movieMaxPage &&
-          this.$route.name === "movie"
-        ) {
-          const { clientHeight, scrollTop, scrollHeight } =
-            e.target.scrollingElement;
-          if (clientHeight + scrollTop >= scrollHeight) {
-            this.addMovies();
-          }
-        }
-      }
-    },
+    ...mapActions(["fetchMovies"]),
   },
   created() {
     this.fetchMovies();
-    window.addEventListener("scroll", this.scrollMoviePage);
   },
 };
 </script>

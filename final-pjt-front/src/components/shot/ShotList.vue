@@ -1,5 +1,5 @@
 <template>
-  <div class="shot-list" @scroll="scrollPage">
+  <div class="shot-list">
     <div v-if="!shots.length" class="mt-3">
       글이 존재하지 않습니다. 기억하고 싶은 영화를 shot으로 공유해주세요!
     </div>
@@ -19,23 +19,13 @@ export default {
     TheShot,
   },
   computed: {
-    ...mapGetters(["shots", "shotPageNum", "maxPage"]),
+    ...mapGetters(["shots", "shotPageNum"]),
   },
   methods: {
-    ...mapActions(["fetchShots", "addShots", "fetchShot"]),
-    scrollPage(e) {
-      if (this.shotPageNum <= this.maxPage && this.$route.name === "shot") {
-        const { clientHeight, scrollTop, scrollHeight } =
-          e.target.scrollingElement;
-        if (clientHeight + scrollTop >= scrollHeight) {
-          this.addShots();
-        }
-      }
-    },
+    ...mapActions(["fetchShots", "fetchShot"]),
   },
   created() {
     this.fetchShots("shot");
-    window.addEventListener("scroll", this.scrollPage);
   },
 };
 </script>

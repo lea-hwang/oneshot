@@ -24,3 +24,12 @@ export const difTime = (previousTime) => {
 };
 
 export const BACKEND_HOST = "http://localhost:8000/";
+
+export const scrollPage = (e, pageNum, maxPage, cb) => {
+  if (pageNum <= maxPage) {
+    const { clientHeight, scrollTop, scrollHeight } = e.target.scrollingElement;
+    if (clientHeight + scrollTop >= scrollHeight) {
+      cb();
+    }
+  }
+};
