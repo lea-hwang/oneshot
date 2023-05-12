@@ -28,7 +28,10 @@ export const BACKEND_HOST = "http://localhost:8000/";
 export const scrollPage = (e, pageNum, maxPage, cb) => {
   if (pageNum <= maxPage) {
     const { clientHeight, scrollTop, scrollHeight } = e.target.scrollingElement;
-    if (clientHeight + scrollTop >= scrollHeight) {
+    if (clientHeight + scrollTop + 600 >= scrollHeight) {
+      console.log(clientHeight);
+      console.log(scrollTop);
+      console.log(scrollHeight);
       cb();
     }
   }

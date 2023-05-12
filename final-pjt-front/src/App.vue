@@ -14,6 +14,7 @@ import TheLogin from "@/components/TheLogin.vue";
 import TheSignup from "@/components/TheSignup.vue";
 import ShotDetail from "@/components/shot/ShotDetail.vue";
 import { scrollPage } from "@/assets/js/common";
+import { throttle } from "lodash";
 
 import { mapActions, mapGetters } from "vuex";
 
@@ -40,7 +41,13 @@ export default {
   },
   created() {
     this.fetchCurrentUser();
-    window.addEventListener("scroll", this.getMorePage, { passive: true });
+    window.addEventListener(
+      "scroll",
+      throttle((e) => {
+        this.getMorePage(e);
+      }, 50),
+      { passive: true }
+    );
   },
   unmounted() {
     window.removeEventListener("scroll");
